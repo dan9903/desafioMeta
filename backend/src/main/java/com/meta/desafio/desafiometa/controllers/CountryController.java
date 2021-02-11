@@ -7,6 +7,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import com.meta.desafio.desafiometa.models.Country;
 import com.meta.desafio.desafiometa.models.CountryData;
+import com.meta.desafio.desafiometa.services.IndicatorService;
 import com.meta.desafio.desafiometa.services.XMLService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,14 @@ import org.xml.sax.SAXException;
 @RestController
 @RequestMapping(value = "/country")
 public class CountryController {
+  private XMLService xmlService;
+  private IndicatorService indicatorService;
 
   @Autowired
-  private XMLService xmlService;
+  public CountryController(XMLService xmlService, IndicatorService indicatorService) {
+    this.xmlService = xmlService;
+    this.indicatorService = indicatorService;
+  }
 
   @GetMapping(path = "/codes")
   public ResponseEntity<List<Country>> getAllCodes()
@@ -32,9 +38,14 @@ public class CountryController {
     return new ResponseEntity<List<Country>>(response, HttpStatus.CREATED);
   }
 
-  @GetMapping(path = "/indicators/{id}")
-  public ResponseEntity<CountryData> getCountryData(@PathVariable String id) {
-
-    return null;
+  @GetMapping(path = "/indicators/{code}")
+  public ResponseEntity<List<CountryData>> getCountryData(@PathVariable String code)
+      throws IOException, InterruptedException {
+    code = code.trim().toUpperCase();
+    if (code.length() != 3) {
+      return new ResponseEntity<List<CountryData>>(HttpStatus.BAD_REQUEST);
+    }
+    var response = indicatorService.getCountryData(code);
+    return new ResponseEntity<List<CountryData>>(response, HttpStatus.OK);
   }
 }

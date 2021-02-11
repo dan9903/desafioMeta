@@ -1,12 +1,9 @@
 package com.meta.desafio.desafiometa.services;
 
+import static com.meta.desafio.desafiometa.utils.Utils.retrieveWebPage;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.net.ProxySelector;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +52,7 @@ public class XMLService {
 
   private Document generateDocument()
       throws IOException, InterruptedException, ParserConfigurationException, SAXException {
-    var xml = connectWBXML();
+    var xml = retrieveWebPage(codesURL);
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     DocumentBuilder builder = factory.newDocumentBuilder();
     Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
@@ -63,12 +60,4 @@ public class XMLService {
     return doc;
   }
 
-  private String connectWBXML() throws IOException, InterruptedException {
-    HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1)
-        .proxy(ProxySelector.getDefault()).build();
-
-    HttpRequest mainRequest = HttpRequest.newBuilder().uri(URI.create(codesURL)).build();
-
-    return httpClient.send(mainRequest, HttpResponse.BodyHandlers.ofString()).body();
-  }
 }
