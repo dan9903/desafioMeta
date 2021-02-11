@@ -34,9 +34,9 @@ export class IndicatorComponent implements OnInit {
 
   public getIndicators(): void {
     this.indicators = this.apiService.getIndicators("BRA");
-    //this.tableData =
     this.indicators.forEach((ind) => {
       this.tableData = ind;
+      this.tableData.forEach((ind) => console.log(ind));
     });
   }
 }
