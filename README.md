@@ -22,3 +22,11 @@ After build you can check if the docker image was created running this command:
 And you can see the desafio-meta container on your terminal, After this you should be start your container using this command:
 
 > docker run -p 8080:8080 desafio-meta
+
+To run the frontend you can run the commands: 
+  after download the application you should be
+> npm install
+
+and after, you can run this command to up the develpment server
+
+> ng serve 
