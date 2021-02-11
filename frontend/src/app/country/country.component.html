@@ -1,0 +1,16 @@
+<div class="container">
+  <h1>Desafio Meta</h1>    
+    <form (ngSubmit)="submit()">
+      <div class="form-group">
+        <label for="website">Country:</label>
+
+        <select class="form-control">
+          <option disabled>Select Country</option>
+          <option [ngValue]="null" >Choose Country</option>
+          <option *ngFor="let country of countries | async" [ngValue]="country.id" >{{ country.name }}</option>
+        </select>
+      </div>
+       
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+    </form>
+</div>
