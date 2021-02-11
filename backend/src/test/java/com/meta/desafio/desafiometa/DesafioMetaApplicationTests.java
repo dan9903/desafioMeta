@@ -1,4 +1,4 @@
-package com.meta.desafio.desafioMeta;
+package com.meta.desafio.desafiometa;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

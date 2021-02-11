@@ -1,4 +1,4 @@
-package com.meta.desafio.desafioMeta;
+package com.meta.desafio.desafiometa;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
